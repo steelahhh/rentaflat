@@ -6,6 +6,7 @@ import io.github.steelahhh.rent.core.dagger.modules.DispatcherModule
 import io.github.steelahhh.rent.core.dagger.modules.PreferencesModule
 import io.github.steelahhh.rent.feature.SplashSubComponent
 import io.github.steelahhh.rent.feature.auth.dagger.AuthSubComponent
+import io.github.steelahhh.rent.feature.flats.dagger.FlatsSubComponent
 import javax.inject.Singleton
 
 /*
@@ -24,6 +25,8 @@ interface AppComponent {
     fun authSubComponent(): AuthSubComponent
 
     fun splashSubComponent(): SplashSubComponent
+
+    fun flatsSubComponent(): FlatsSubComponent
 
     companion object {
         lateinit var instance: AppComponent

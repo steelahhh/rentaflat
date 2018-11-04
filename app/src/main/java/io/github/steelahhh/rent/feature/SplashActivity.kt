@@ -17,6 +17,7 @@ import io.github.steelahhh.rent.core.base.BaseActivity
 import io.github.steelahhh.rent.core.dagger.AppComponent
 import io.github.steelahhh.rent.databinding.ActivitySplashBinding
 import io.github.steelahhh.rent.feature.auth.AuthActivity
+import io.github.steelahhh.rent.feature.flats.FlatsActivity
 import java.util.concurrent.Executor
 import javax.inject.Named
 
@@ -47,7 +48,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>(), S
     }
 
     override fun routeToFlats() {
-
+        startActivity(Intent(this, FlatsActivity::class.java))
+        finish()
     }
 
 }

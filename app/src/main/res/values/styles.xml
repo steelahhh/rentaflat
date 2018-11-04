@@ -6,6 +6,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:toolbarStyle">@style/AppTheme.Toolbar</item>
+        <item name="md_font_title">@font/manrope_bold</item>
+        <item name="md_font_body">@font/manrope_regular</item>
+        <item name="md_font_button">@font/manrope_semibold</item>
+        <item name="md_corner_radius">8dp</item>
     </style>
 
     <style name="AppText">

@@ -1,7 +1,7 @@
 package io.github.steelahhh.rent.feature.auth
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import io.github.steelahhh.rent.BR
@@ -9,6 +9,7 @@ import io.github.steelahhh.rent.R
 import io.github.steelahhh.rent.core.base.BaseActivity
 import io.github.steelahhh.rent.core.dagger.AppComponent
 import io.github.steelahhh.rent.databinding.ActivityAuthBinding
+import io.github.steelahhh.rent.feature.flats.FlatsActivity
 
 class AuthActivity : BaseActivity<ActivityAuthBinding, AuthViewModel>(), AuthViewModel.EventListener {
     override val layoutId: Int  = R.layout.activity_auth
@@ -43,6 +44,7 @@ class AuthActivity : BaseActivity<ActivityAuthBinding, AuthViewModel>(), AuthVie
     }
 
     override fun onAuthSuccess() {
-
+        startActivity(Intent(this, FlatsActivity::class.java))
+        finish()
     }
 }

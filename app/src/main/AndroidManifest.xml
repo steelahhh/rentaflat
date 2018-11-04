@@ -15,6 +15,10 @@
                 android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
+                android:name=".feature.flats.FlatsActivity"
+                android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
                 android:name=".feature.SplashActivity"
                 android:windowSoftInputMode="adjustResize">
             <intent-filter>

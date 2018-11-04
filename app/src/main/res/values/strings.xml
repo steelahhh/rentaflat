@@ -3,8 +3,14 @@
 
     <string name="common_error">Ошибка</string>
     <string name="common_ok">OK</string>
+    <string name="common_cancel">Отмена</string>
+    <string name="common_yes">Да</string>
+    <string name="common_no">Нет</string>
 
     <string name="auth_login_hint">Имя</string>
     <string name="auth_password_hint">Пароль</string>
     <string name="auth_error">Неверный пароль</string>
+
+    <string name="auth_logout">Выйти</string>
+    <string name="auth_logout_message">Вы действительно хотите выйти?</string>
 </resources>

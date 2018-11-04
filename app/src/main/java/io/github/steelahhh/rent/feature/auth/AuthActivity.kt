@@ -1,7 +1,9 @@
 package io.github.steelahhh.rent.feature.auth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.afollestad.materialdialogs.MaterialDialog
 import io.github.steelahhh.rent.BR
 import io.github.steelahhh.rent.R
 import io.github.steelahhh.rent.core.base.BaseActivity
@@ -22,5 +24,25 @@ class AuthActivity : BaseActivity<ActivityAuthBinding, AuthViewModel>(), AuthVie
         setupToolbar()
 
         vm.dispatcher.bind(this, this)
+
+        binding.loginActionButton.setOnClickListener {
+            val name = binding.userNameTextInput.editText?.text?.toString() ?: ""
+            val password = binding.passwordTextInput.editText?.text?.toString() ?: ""
+            vm.auth(name, password)
+        }
+    }
+
+    override fun onAuthFailure(reason: String) {
+        MaterialDialog(this)
+            .title(R.string.common_error)
+            .message(text = reason)
+            .cancelable(true)
+            .positiveButton(R.string.common_ok)
+            .show()
+
+    }
+
+    override fun onAuthSuccess() {
+
     }
 }

@@ -1,9 +1,11 @@
 package io.github.steelahhh.rent.feature.auth.dagger
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
+import io.github.steelahhh.rent.core.Preferences
 import io.github.steelahhh.rent.core.arch.EventDispatcher
 import io.github.steelahhh.rent.core.arch.ViewModelFactory
 import io.github.steelahhh.rent.feature.auth.AuthViewModel
@@ -22,9 +24,12 @@ interface AuthSubComponent {
     class AuthModule {
 
         @Provides
-        fun provideViewModel(@Named("dispatcher") mainExecutor: Executor):
-                ViewModelProvider.Factory = ViewModelFactory {
-            AuthViewModel(EventDispatcher(mainExecutor))
+        fun provideViewModel(
+            context: Context,
+            preferences: Preferences,
+            @Named("dispatcher") mainExecutor: Executor
+        ): ViewModelProvider.Factory = ViewModelFactory {
+            AuthViewModel(context, preferences, EventDispatcher(mainExecutor))
         }
     }
 

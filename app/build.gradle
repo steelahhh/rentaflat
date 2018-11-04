@@ -3,6 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -12,6 +16,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "USERNAME", "\""+localProperties['username']+"\""
+        buildConfigField "String", "PASSWORD", "\""+localProperties['password']+"\""
     }
     buildTypes {
         release {
@@ -33,7 +39,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidx_version"
     implementation "androidx.recyclerview:recyclerview:${androidx_version}"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha2"
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation "com.google.android.material:material:1.0.0"
 
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
@@ -43,21 +49,21 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    implementation 'com.mikepenz:fastadapter:3.3.1'
-    implementation 'com.mikepenz:fastadapter-commons:3.3.1'
+    implementation "com.mikepenz:fastadapter:3.3.1"
+    implementation "com.mikepenz:fastadapter-commons:3.3.1"
 
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.google.code.gson:gson:2.8.5"
 
     def dagger_version = "2.11"
 
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation "com.github.bumptech.glide:glide:4.8.0"
+    kapt "com.github.bumptech.glide:compiler:4.8.0"
 
-    implementation 'com.afollestad.material-dialogs:core:2.0.0-beta4'
+    implementation "com.afollestad.material-dialogs:core:2.0.0-beta4"
 
     testImplementation "junit:junit:4.12"
     androidTestImplementation "androidx.test:runner:1.1.0"

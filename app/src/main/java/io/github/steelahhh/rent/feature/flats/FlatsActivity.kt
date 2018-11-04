@@ -7,8 +7,6 @@ import android.view.MenuItem
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import io.github.steelahhh.rent.R
@@ -47,13 +45,7 @@ class FlatsActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(), Flat
             }
         }
 
-        binding.flatsRecycler.apply {
-            val lm = LinearLayoutManager(context)
-            layoutManager = lm
-            adapter = fastAdapter
-            val dividerItemDecoration = DividerItemDecoration(context, lm.orientation)
-            addItemDecoration(dividerItemDecoration)
-        }
+        binding.flatsRecycler.adapter = fastAdapter
 
         vm.flats.observe(this, Observer {
             fastAdapter.set(it)

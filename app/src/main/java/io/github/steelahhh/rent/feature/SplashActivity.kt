@@ -2,7 +2,6 @@ package io.github.steelahhh.rent.feature
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.Module
@@ -10,7 +9,7 @@ import dagger.Provides
 import dagger.Subcomponent
 import io.github.steelahhh.rent.BR
 import io.github.steelahhh.rent.R
-import io.github.steelahhh.rent.core.Preferences
+import io.github.steelahhh.rent.data.Preferences
 import io.github.steelahhh.rent.core.arch.EventDispatcher
 import io.github.steelahhh.rent.core.arch.ViewModelFactory
 import io.github.steelahhh.rent.core.base.BaseActivity
@@ -18,6 +17,7 @@ import io.github.steelahhh.rent.core.dagger.AppComponent
 import io.github.steelahhh.rent.databinding.ActivitySplashBinding
 import io.github.steelahhh.rent.feature.auth.AuthActivity
 import io.github.steelahhh.rent.feature.flats.FlatsActivity
+import io.github.steelahhh.rent.feature.flats.FlatsRepository
 import java.util.concurrent.Executor
 import javax.inject.Named
 
@@ -56,8 +56,16 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>(), S
 
 class SplashViewModel(
     private val preferences: Preferences,
+    private val repository: FlatsRepository,
     val dispatcher: EventDispatcher<EventListener>
 ) : ViewModel() {
+
+    init {
+        if (preferences.firstLaunch) {
+            repository.populateFlats().subscribe()
+            preferences.firstLaunch = false
+        }
+    }
 
     fun checkAuth() {
         val user = preferences.getUser()
@@ -85,9 +93,10 @@ interface SplashSubComponent {
         @Provides
         fun provideViewModel(
             preferences: Preferences,
+            repository: FlatsRepository,
             @Named("dispatcher") mainExecutor: Executor
         ): ViewModelProvider.Factory = ViewModelFactory {
-            SplashViewModel(preferences, EventDispatcher(mainExecutor))
+            SplashViewModel(preferences, repository, EventDispatcher(mainExecutor))
         }
     }
 

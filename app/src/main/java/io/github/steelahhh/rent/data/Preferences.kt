@@ -1,4 +1,4 @@
-package io.github.steelahhh.rent.core
+package io.github.steelahhh.rent.data
 
 import android.content.SharedPreferences
 import io.github.steelahhh.rent.model.User
@@ -9,6 +9,10 @@ import java.util.*
  */
 
 class Preferences(private val prefs: SharedPreferences) {
+
+    var firstLaunch: Boolean
+        set(value) = prefs.edit().putBoolean(FIRST_LAUNCH, value).apply()
+        get() = prefs.getBoolean(FIRST_LAUNCH, true)
 
     fun getUser(): User? {
         val id = prefs.getInt(USER_ID, -1)
@@ -38,5 +42,6 @@ class Preferences(private val prefs: SharedPreferences) {
     companion object {
         const val USER_ID = "prefs:User Id"
         const val USER_NAME = "prefs:User Name"
+        const val FIRST_LAUNCH = "prefs:First Launch"
     }
 }

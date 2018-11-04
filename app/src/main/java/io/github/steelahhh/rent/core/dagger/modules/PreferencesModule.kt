@@ -3,7 +3,7 @@ package io.github.steelahhh.rent.core.dagger.modules
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import io.github.steelahhh.rent.core.Preferences
+import io.github.steelahhh.rent.data.Preferences
 import javax.inject.Singleton
 
 /*
@@ -15,5 +15,5 @@ class PreferencesModule {
     @Provides
     @Singleton
     fun providePreferences(context: Context): Preferences =
-            Preferences(context.getSharedPreferences("prefs", Context.MODE_PRIVATE))
+        Preferences(context.getSharedPreferences("prefs", Context.MODE_PRIVATE))
 }

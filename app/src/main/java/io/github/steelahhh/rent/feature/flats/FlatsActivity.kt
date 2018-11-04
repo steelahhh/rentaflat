@@ -5,13 +5,19 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.library.baseAdapters.BR
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
+import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import io.github.steelahhh.rent.R
 import io.github.steelahhh.rent.core.base.BaseActivity
 import io.github.steelahhh.rent.core.dagger.AppComponent
 import io.github.steelahhh.rent.databinding.ActivityFlatsBinding
 import io.github.steelahhh.rent.feature.auth.AuthActivity
+import io.github.steelahhh.rent.model.FlatItem
+
 
 /*
  * Created by Alexander Efimenko on 4/11/18.
@@ -27,10 +33,31 @@ class FlatsActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(), Flat
     override fun viewModelFactory(): ViewModelProvider.Factory =
         AppComponent.instance.flatsSubComponent().viewModelFactory()
 
+    private var fastAdapter: FastItemAdapter<FlatItem> = FastItemAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vm.dispatcher.bind(this, this)
         setupToolbar()
+
+        fastAdapter.apply {
+            hasStableIds()
+            withOnClickListener { _, _, item, _ ->
+                true
+            }
+        }
+
+        binding.flatsRecycler.apply {
+            val lm = LinearLayoutManager(context)
+            layoutManager = lm
+            adapter = fastAdapter
+            val dividerItemDecoration = DividerItemDecoration(context, lm.orientation)
+            addItemDecoration(dividerItemDecoration)
+        }
+
+        vm.flats.observe(this, Observer {
+            fastAdapter.set(it)
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

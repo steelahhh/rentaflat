@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import io.github.steelahhh.rent.BuildConfig
 import io.github.steelahhh.rent.R
-import io.github.steelahhh.rent.core.Preferences
+import io.github.steelahhh.rent.data.Preferences
 import io.github.steelahhh.rent.core.arch.EventDispatcher
 
 /*

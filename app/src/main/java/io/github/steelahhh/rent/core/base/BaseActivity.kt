@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import io.github.steelahhh.rent.R
+import io.github.steelahhh.rent.utils.changeToolbarFont
 
 /*
  * Created by Alexander Efimenko on 4/11/18.
@@ -37,6 +38,8 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : ViewModel> : AppCompatAct
 
         if (toolbar != null) {
             setSupportActionBar(toolbar)
+
+            toolbar.changeToolbarFont()
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(homeAsUp)

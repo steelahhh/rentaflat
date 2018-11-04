@@ -34,6 +34,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
+                        style="@style/AppText"
                         android:hint="@string/auth_login_hint"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -58,6 +59,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:inputType="textPassword"
+                        style="@style/AppText"
                         android:hint="@string/auth_password_hint"/>
 
             </com.google.android.material.textfield.TextInputLayout>

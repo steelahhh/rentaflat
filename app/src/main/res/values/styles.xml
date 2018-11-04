@@ -1,0 +1,27 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:toolbarStyle">@style/AppTheme.Toolbar</item>
+    </style>
+
+    <style name="AppText">
+        <item name="android:fontFamily">@font/manrope_regular</item>
+    </style>
+
+    <style name="AppText.Title">
+        <item name="android:textSize">42sp</item>
+    </style>
+
+    <style name="AppText.Text">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTheme.Toolbar">
+        <item name="android:textAppearance">@style/AppText.Title</item>
+    </style>
+
+</resources>

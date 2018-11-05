@@ -16,7 +16,9 @@ import io.github.steelahhh.rent.R
 import io.github.steelahhh.rent.core.base.BaseActivity
 import io.github.steelahhh.rent.core.dagger.AppComponent
 import io.github.steelahhh.rent.databinding.ActivityFlatEditBinding
+import kotlinx.android.synthetic.main.abc_search_view.*
 import java.lang.Exception
+import java.util.*
 
 /*
  * Created by Alexander Efimenko on 5/11/18.
@@ -32,27 +34,23 @@ class EditFlatActivity : BaseActivity<ActivityFlatEditBinding, FlatsViewModel>()
     override fun viewModelFactory(): ViewModelProvider.Factory =
         AppComponent.instance.flatsSubComponent().viewModelFactory()
 
-    var flatId: Int = 0
+    var flatId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupToolbar(homeAsUp = true)
         vm.dispatcher.bind(this, this)
 
-        flatId = intent.extras?.getInt(FLAT_ID) ?: 0
+        flatId = intent.extras?.getInt(FLAT_ID) ?: -1
 
-        vm.fetchFlat(flatId)
+        if (flatId != -1)
+            vm.fetchFlat(flatId)
 
         binding.floorTextInput.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.d("TAGGO", "$s $start $before $count")
                 val str = s?.toString() ?: ""
                 if (str.length == 1 && count == 1) {
                     binding.floorTextInput.editText?.setText(getString(R.string.edit_flat_floor_holder, str, ""))
@@ -79,10 +77,71 @@ class EditFlatActivity : BaseActivity<ActivityFlatEditBinding, FlatsViewModel>()
         }
     }
 
+    override fun routeToCreateFlat() {}
+
+    private fun isValid(): Boolean {
+        val address: String?
+        val price: Long?
+        val area: Double?
+        val rooms: Int?
+        val floorStr: String
+        val floor: Int
+        val floors: Int
+
+        try {
+             address = binding.addressTextInput.editText?.text?.toString()
+             price = binding.priceTextInput.editText?.text?.toString()?.toLong()
+             rooms = binding.roomTextInput.editText?.text?.toString()?.toInt()
+             area = binding.areaTextInput.editText?.text?.toString()?.toDouble()
+             floorStr = binding.floorTextInput.editText?.text?.toString() ?: ""
+        } catch (e: Exception) {
+            showError(getString(R.string.edit_flat_empty_field))
+            return false
+        }
+
+        try {
+            floor = floorStr.split("/")[0].toInt()
+            floors = floorStr.split("/")[1].toInt()
+        } catch (e: Exception) {
+            showError(getString(R.string.edit_flat_floor_parse_error))
+            return false
+        }
+
+        if (floor > floors) {
+            showError(getString(R.string.edit_flat_floor_error))
+            return false
+        }
+
+        if (address.isNullOrEmpty()) {
+            showError(getString(R.string.edit_flat_address_error))
+            return false
+        }
+
+        if (price == null || price == 0L) {
+            showError(getString(R.string.edit_flat_price_error))
+            return false
+        }
+
+        if (area == null || area == 0.0) {
+            showError(getString(R.string.edit_flat_area_error))
+            return false
+        }
+        if (rooms == null || rooms == 0) {
+            showError(getString(R.string.edit_flat_rooms_error))
+            return false
+        }
+
+        return true
+    }
+
     private fun saveFlat() {
         val flat = vm.flat.value!!
 
         val isEdit = intent.extras?.getBoolean(INTENT_TYPE) ?: true
+
+        if (!isValid()) {
+            return
+        }
 
         val address = binding.addressTextInput.editText?.text?.toString() ?: ""
         val price = binding.priceTextInput.editText?.text?.toString()?.toLong() ?: flat.price
@@ -90,21 +149,8 @@ class EditFlatActivity : BaseActivity<ActivityFlatEditBinding, FlatsViewModel>()
         val area = binding.areaTextInput.editText?.text?.toString()?.toDouble() ?: flat.area
         val floorStr = binding.floorTextInput.editText?.text?.toString() ?: ""
 
-        var floor = flat.floor
-        var floors = flat.floors
-
-        try {
-            floor = floorStr.split("/")[0].toInt()
-            floors = floorStr.split("/")[1].toInt()
-        } catch (e: Exception) {
-            showError(getString(R.string.edit_flat_floor_parse_error))
-            return
-        }
-
-        if (floor > floors) {
-            showError(getString(R.string.edit_flat_floor_error))
-            return
-        }
+        val floor = floorStr.split("/")[0].toInt()
+        val floors = floorStr.split("/")[1].toInt()
 
         val pricePerSqM = price / area
 
@@ -114,7 +160,8 @@ class EditFlatActivity : BaseActivity<ActivityFlatEditBinding, FlatsViewModel>()
             rooms = rooms,
             pricePerSqM = pricePerSqM,
             floor = floor,
-            floors = floors
+            floors = floors,
+            area = area
         )
 
         if (isEdit) {
@@ -123,7 +170,7 @@ class EditFlatActivity : BaseActivity<ActivityFlatEditBinding, FlatsViewModel>()
                 finish()
             }
         } else {
-            vm.insertFlat(flat) {
+            vm.insertFlat(newFlat.copy(id = UUID.randomUUID().toString().hashCode(), image = PLACEHOLDER_IMAGE)) {
                 setResult(Activity.RESULT_OK)
                 finish()
             }
@@ -141,6 +188,9 @@ class EditFlatActivity : BaseActivity<ActivityFlatEditBinding, FlatsViewModel>()
     companion object {
         const val FLAT_ID = "args: Flat ID"
         const val INTENT_TYPE = "args: Intent Type"
+
+        const val PLACEHOLDER_IMAGE =
+            "https://images.unsplash.com/photo-1483058712412-4245e9b90334?ixlib=rb-0.3.5&s=c1058ecb478c4833b4cbf3133d7d10f1&auto=format&fit=crop&w=500&q=60"
 
         fun createIntent(context: Context, id: Int, isEdit: Boolean = true) =
             Intent(context, EditFlatActivity::class.java).apply {

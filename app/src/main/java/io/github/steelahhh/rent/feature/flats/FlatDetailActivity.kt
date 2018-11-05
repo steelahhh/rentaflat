@@ -25,7 +25,7 @@ class FlatDetailActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(),
     override val viewModelClass: Class<FlatsViewModel> = FlatsViewModel::class.java
 
     override fun viewModelFactory(): ViewModelProvider.Factory =
-            AppComponent.instance.flatsSubComponent().viewModelFactory()
+        AppComponent.instance.flatsSubComponent().viewModelFactory()
 
     var flatId: Int = 0
 
@@ -48,8 +48,9 @@ class FlatDetailActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(),
         return when (item?.itemId) {
             R.id.edit_action -> {
                 startActivityForResult(
-                        EditFlatActivity.createIntent(this@FlatDetailActivity, flatId),
-                        EDIT_FLAT_REQUEST_CODE)
+                    EditFlatActivity.createIntent(this@FlatDetailActivity, flatId),
+                    EDIT_FLAT_REQUEST_CODE
+                )
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -63,8 +64,11 @@ class FlatDetailActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(),
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    override fun routeToCreateFlat() {}
+
     companion object {
         const val EDIT_FLAT_REQUEST_CODE = 1001
+        const val CREATE_FLAT_REQUEST_CODE = 1002
         const val FLAT_ID = "args: Flat ID"
 
         fun createIntent(context: Context, id: Int) = Intent(context, FlatDetailActivity::class.java).apply {

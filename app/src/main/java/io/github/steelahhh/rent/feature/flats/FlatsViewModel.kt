@@ -9,6 +9,7 @@ import io.github.steelahhh.rent.core.arch.EventDispatcher
 import io.github.steelahhh.rent.data.Preferences
 import io.github.steelahhh.rent.model.Flat
 import io.github.steelahhh.rent.model.FlatItem
+import io.github.steelahhh.rent.utils.default
 import io.github.steelahhh.rent.utils.toLiveData
 
 /*
@@ -16,9 +17,9 @@ import io.github.steelahhh.rent.utils.toLiveData
  */
 @SuppressLint("CheckResult")
 class FlatsViewModel(
-        private val preferences: Preferences,
-        private val repository: FlatsRepository,
-        val dispatcher: EventDispatcher<EventListener>
+    private val preferences: Preferences,
+    private val repository: FlatsRepository,
+    val dispatcher: EventDispatcher<EventListener>
 ) : ViewModel() {
 
     val flats: LiveData<List<FlatItem>> = Transformations.map(repository.getFlats().toLiveData()) { flats ->
@@ -27,7 +28,7 @@ class FlatsViewModel(
         }
     }
 
-    val flat: MutableLiveData<Flat> = MutableLiveData()
+    val flat = MutableLiveData<Flat>().default(Flat())
 
     fun fetchFlat(id: Int) {
         repository.getFlat(id).subscribe({ flat.postValue(it) }, { it.printStackTrace() })
@@ -45,5 +46,11 @@ class FlatsViewModel(
         preferences.removeUser()
     }
 
-    interface EventListener
+    fun routeToCreateFlat() {
+        dispatcher.dispatchEvent { routeToCreateFlat() }
+    }
+
+    interface EventListener {
+        fun routeToCreateFlat()
+    }
 }

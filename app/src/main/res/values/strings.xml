@@ -32,6 +32,11 @@
     <string name="edit_flat_number_holder">%s</string>
     <string name="edit_flat_floor_holder">%s/%s</string>
 
-    <string name="edit_flat_floor_error">Этаж не может быть больше общего количества этажей</string>
+    <string name="edit_flat_floor_error">Общее количество этажей должно быть больше этажа квартиры</string>
     <string name="edit_flat_floor_parse_error">Не удалось получить количество этажей</string>
+    <string name="edit_flat_address_error">Адрес не может быть пустым</string>
+    <string name="edit_flat_price_error">Цена не может быть равна нулю</string>
+    <string name="edit_flat_area_error">Площадь не может быть равна нулю</string>
+    <string name="edit_flat_rooms_error">Количество комнат не может быть равно нулю</string>
+    <string name="edit_flat_empty_field">Поля не могут быть пустыми</string>
 </resources>

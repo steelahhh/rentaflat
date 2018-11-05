@@ -3,10 +3,9 @@ package io.github.steelahhh.rent.utils
 import android.graphics.Typeface
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -75,4 +74,9 @@ fun <T> Maybe<T>.toLiveData(): LiveData<T> {
 
 fun <T> Completable.toLiveData(): LiveData<T> {
     return LiveDataReactiveStreams.fromPublisher(this.toFlowable())
+}
+
+fun <T> MutableLiveData<T>.default(value: T): MutableLiveData<T> {
+    this.value = value
+    return this
 }

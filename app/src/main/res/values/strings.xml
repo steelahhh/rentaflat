@@ -6,6 +6,8 @@
     <string name="common_cancel">Отмена</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
+    <string name="common_edit">Редактировать</string>
+
 
     <string name="auth_login_hint">Имя</string>
     <string name="auth_password_hint">Пароль</string>
@@ -20,4 +22,16 @@
     <string name="flat_room">Комнат: %s</string>
     <string name="flat_floor">Этаж: %s/%s</string>
     <string name="flat_price_pre_sqm">Цена за кв. м: %s ₽</string>
+
+    <string name="edit_flat_area">Площадь</string>
+    <string name="edit_flat_address">Адрес</string>
+    <string name="edit_flat_rooms">Комнат</string>
+    <string name="edit_flat_price">Цена, ₽</string>
+    <string name="edit_flat_floor">Этаж</string>
+
+    <string name="edit_flat_number_holder">%s</string>
+    <string name="edit_flat_floor_holder">%s/%s</string>
+
+    <string name="edit_flat_floor_error">Этаж не может быть больше общего количества этажей</string>
+    <string name="edit_flat_floor_parse_error">Не удалось получить количество этажей</string>
 </resources>

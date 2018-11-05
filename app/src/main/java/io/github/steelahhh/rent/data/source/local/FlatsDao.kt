@@ -2,6 +2,7 @@ package io.github.steelahhh.rent.data.source.local
 
 import androidx.room.*
 import io.github.steelahhh.rent.model.Flat
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 

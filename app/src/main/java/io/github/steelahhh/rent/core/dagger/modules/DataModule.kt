@@ -1,4 +1,4 @@
-package io.github.steelahhh.rent.data.source
+package io.github.steelahhh.rent.core.dagger.modules
 
 import android.content.Context
 import androidx.room.Room
@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 import io.github.steelahhh.rent.data.source.local.FlatsDao
 import io.github.steelahhh.rent.data.source.local.FlatsDatabase
-import io.github.steelahhh.rent.feature.flats.FlatRemoteSource
+import io.github.steelahhh.rent.data.source.remote.FlatRemoteSource
 import io.github.steelahhh.rent.feature.flats.FlatsRepository
 import javax.inject.Singleton
 

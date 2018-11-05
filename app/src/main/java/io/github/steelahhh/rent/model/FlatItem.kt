@@ -21,7 +21,7 @@ data class FlatItem(
     val image: String = "",
     val address: String = "",
     val area: Double = 0.0,
-    val price: Double = 0.0
+    val price: Long = 0
 ) : AbstractItem<FlatItem, FlatItem.VH>() {
     override fun getType(): Int = R.id.item_flat_id
 

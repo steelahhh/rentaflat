@@ -49,10 +49,8 @@ class FlatsActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(), Flat
         binding.flatsRecycler.adapter = fastAdapter
 
         vm.flats.observe(this, Observer {
-            if (fastAdapter.itemCount != it.size) {
-                fastAdapter.clear()
-                fastAdapter.add(it)
-            }
+            fastAdapter.clear()
+            fastAdapter.add(it)
         })
     }
 

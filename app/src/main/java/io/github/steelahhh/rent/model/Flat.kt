@@ -17,7 +17,7 @@ data class Flat(
     val image: String = "",
     val address: String = "",
     val area: Double = 0.0,
-    val price: Double = 0.0,
+    val price: Long = 0,
     val rooms: Int = 0,
     val pricePerSqM: Double = 0.0,
     val floor: Int = 0,

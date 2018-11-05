@@ -5,7 +5,7 @@ import io.github.steelahhh.rent.core.dagger.modules.ApplicationModule
 import io.github.steelahhh.rent.core.dagger.modules.ContextModule
 import io.github.steelahhh.rent.core.dagger.modules.DispatcherModule
 import io.github.steelahhh.rent.core.dagger.modules.PreferencesModule
-import io.github.steelahhh.rent.data.source.DataModule
+import io.github.steelahhh.rent.core.dagger.modules.DataModule
 import io.github.steelahhh.rent.feature.SplashSubComponent
 import io.github.steelahhh.rent.feature.auth.dagger.AuthSubComponent
 import io.github.steelahhh.rent.feature.flats.dagger.FlatsSubComponent

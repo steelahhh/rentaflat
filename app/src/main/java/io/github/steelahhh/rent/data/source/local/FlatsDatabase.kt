@@ -8,7 +8,7 @@ import io.github.steelahhh.rent.model.Flat
  * Created by Alexander Efimenko on 4/11/18.
  */
 
-@Database(entities = [Flat::class], version = 3, exportSchema = false)
+@Database(entities = [Flat::class], version = 4, exportSchema = false)
 abstract class FlatsDatabase : RoomDatabase() {
     abstract val flatDao: FlatsDao
 }

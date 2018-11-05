@@ -33,6 +33,14 @@ class FlatsViewModel(
         repository.getFlat(id).subscribe({ flat.postValue(it) }, { it.printStackTrace() })
     }
 
+    fun insertFlat(flat: Flat, action: () -> Unit) {
+        repository.saveFlat(flat).subscribe({ action() }, { it.printStackTrace() })
+    }
+
+    fun updateFlat(flat: Flat, action: () -> Unit) {
+        repository.updateFlat(flat).subscribe({ action() }, { it.printStackTrace() })
+    }
+
     fun logout() {
         preferences.removeUser()
     }

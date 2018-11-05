@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Rent</string>
+    <string name="app_name">Rent-A-Flat</string>
 
     <string name="common_error">Ошибка</string>
     <string name="common_ok">OK</string>
@@ -14,7 +14,7 @@
     <string name="auth_logout">Выйти</string>
     <string name="auth_logout_message">Вы действительно хотите выйти?</string>
 
-    <string name="flat_area">Площадь: %.2f м²</string>
+    <string name="flat_area">Площадь: %.1f м²</string>
     <string name="flat_price">Цена: %s ₽</string>
     <string name="flat_address">Адрес: %s</string>
 </resources>

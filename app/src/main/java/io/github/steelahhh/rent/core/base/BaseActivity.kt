@@ -1,6 +1,7 @@
 package io.github.steelahhh.rent.core.base
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -31,6 +32,18 @@ abstract class BaseActivity<DB : ViewDataBinding, VM : ViewModel> : AppCompatAct
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.setLifecycleOwner(this)
         binding.setVariable(vmId, vm)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 
     fun setupToolbar(homeAsUp: Boolean = false) {

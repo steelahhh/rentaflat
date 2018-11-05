@@ -20,5 +20,6 @@ data class Flat(
     val price: Double = 0.0,
     val rooms: Int = 0,
     val pricePerSqM: Double = 0.0,
-    val floor: Int = 0
+    val floor: Int = 0,
+    val floors: Int = 0
 )

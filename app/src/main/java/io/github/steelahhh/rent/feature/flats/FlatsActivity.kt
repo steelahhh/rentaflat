@@ -29,7 +29,7 @@ class FlatsActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(), Flat
     override val viewModelClass: Class<FlatsViewModel> = FlatsViewModel::class.java
 
     override fun viewModelFactory(): ViewModelProvider.Factory =
-        AppComponent.instance.flatsSubComponent().viewModelFactory()
+            AppComponent.instance.flatsSubComponent().viewModelFactory()
 
     private var fastAdapter: FastItemAdapter<FlatItem> = FastItemAdapter()
 
@@ -41,6 +41,7 @@ class FlatsActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(), Flat
         fastAdapter.apply {
             hasStableIds()
             withOnClickListener { _, _, item, _ ->
+                startActivity(FlatDetailActivity.createIntent(this@FlatsActivity, item.id))
                 true
             }
         }
@@ -48,7 +49,10 @@ class FlatsActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(), Flat
         binding.flatsRecycler.adapter = fastAdapter
 
         vm.flats.observe(this, Observer {
-            fastAdapter.set(it)
+            if (fastAdapter.itemCount != it.size) {
+                fastAdapter.clear()
+                fastAdapter.add(it)
+            }
         })
     }
 
@@ -69,17 +73,17 @@ class FlatsActivity : BaseActivity<ActivityFlatsBinding, FlatsViewModel>(), Flat
 
     private fun logout() {
         MaterialDialog(this)
-            .title(R.string.auth_logout)
-            .message(R.string.auth_logout_message)
-            .positiveButton(R.string.common_yes) {
-                vm.logout()
-                startActivity(Intent(this, AuthActivity::class.java))
-                finish()
-            }
-            .negativeButton(R.string.common_no) {
-                it.dismiss()
-            }
-            .show()
+                .title(R.string.auth_logout)
+                .message(R.string.auth_logout_message)
+                .positiveButton(R.string.common_yes) {
+                    vm.logout()
+                    startActivity(Intent(this, AuthActivity::class.java))
+                    finish()
+                }
+                .negativeButton(R.string.common_no) {
+                    it.dismiss()
+                }
+                .show()
     }
 
 }

@@ -11,8 +11,8 @@ import javax.inject.Inject
  */
 
 class FlatsRepository @Inject constructor(
-    private val remoteSource: FlatRemoteSource,
-    private val localSource: FlatsDao
+        private val remoteSource: FlatRemoteSource,
+        private val localSource: FlatsDao
 ) {
 
     fun populateFlats() = Completable.fromCallable {
@@ -21,7 +21,7 @@ class FlatsRepository @Inject constructor(
 
     fun getFlats() = localSource.getFlats().ioMainSchedulers()
 
-    fun getFlat(id: Int) = localSource.getFlat(id)
+    fun getFlat(id: Int) = localSource.getFlat(id).ioMainSchedulers()
 
     val flatCount: Single<Int> get() = localSource.flatCount.ioMainSchedulers()
 }

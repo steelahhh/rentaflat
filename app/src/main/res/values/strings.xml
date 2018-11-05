@@ -17,4 +17,7 @@
     <string name="flat_area">Площадь: %.1f м²</string>
     <string name="flat_price">Цена: %s ₽</string>
     <string name="flat_address">Адрес: %s</string>
+    <string name="flat_room">Комнат: %s</string>
+    <string name="flat_floor">Этаж: %s/%s</string>
+    <string name="flat_price_pre_sqm">Цена за кв. м: %s ₽</string>
 </resources>
